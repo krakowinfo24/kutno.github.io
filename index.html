@@ -1,729 +1,103 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kutno – Aktualności z Kutno</title>
-    <meta name="description" content="Najnowsze aktualności, wiadomości lokalne i informacje z Kutno. Kutno – Twój lokalny serwis informacyjny.">
-    <meta name="keywords" content="Kutno, wiadomości Kutno, aktualności Kutno, lokalny serwis informacyjny">
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        :root {
-            --primary: #0d3b6e;
-            --primary-light: #1a5276;
-            --accent: #c0392b;
-            --text: #1a1a1a;
-            --text-muted: #6c757d;
-            --bg: #f4f5f7;
-            --white: #ffffff;
-            --border: #dde1e7;
-            --card-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-
-        body {
-            font-family: 'Georgia', 'Times New Roman', serif;
-            background: var(--bg);
-            color: var(--text);
-            font-size: 16px;
-            line-height: 1.6;
-        }
-
-        a { color: inherit; text-decoration: none; }
-        a:hover { color: var(--accent); }
-        img { max-width: 100%; display: block; }
-
-        /* TOP BAR */
-        .topbar {
-            background: var(--primary);
-            color: rgba(255,255,255,0.75);
-            font-family: Arial, sans-serif;
-            font-size: 12px;
-            padding: 6px 0;
-        }
-        .topbar-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .topbar a { color: rgba(255,255,255,0.75); }
-        .topbar a:hover { color: #fff; }
-
-        /* HEADER */
-        header {
-            background: var(--white);
-            border-bottom: 3px solid var(--primary);
-            padding: 18px 0 12px;
-        }
-        .header-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-        }
-        .logo {
-            display: flex;
-            flex-direction: column;
-        }
-        .logo-name {
-            font-size: 32px;
-            font-weight: 900;
-            color: var(--primary);
-            letter-spacing: -0.5px;
-            text-transform: uppercase;
-            font-family: Arial, sans-serif;
-            line-height: 1;
-        }
-        .logo-name span { color: var(--accent); }
-        .logo-tagline {
-            font-size: 12px;
-            color: var(--text-muted);
-            font-family: Arial, sans-serif;
-            margin-top: 3px;
-            letter-spacing: 0.5px;
-        }
-        .header-date {
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-            color: var(--text-muted);
-            text-align: right;
-        }
-
-        /* NAV */
-        nav {
-            background: var(--primary);
-        }
-        .nav-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            gap: 0;
-        }
-        nav a {
-            color: rgba(255,255,255,0.9);
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            padding: 12px 18px;
-            display: block;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            border-right: 1px solid rgba(255,255,255,0.1);
-            transition: background 0.2s;
-        }
-        nav a:hover, nav a.active {
-            background: var(--accent);
-            color: #fff;
-        }
-
-        /* BREAKING NEWS */
-        .breaking {
-            background: var(--accent);
-            color: #fff;
-            padding: 8px 0;
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-        }
-        .breaking-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-        .breaking-label {
-            background: rgba(0,0,0,0.25);
-            padding: 2px 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 11px;
-            white-space: nowrap;
-            letter-spacing: 0.5px;
-        }
-        .breaking-text { overflow: hidden; }
-
-        /* MAIN LAYOUT */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 24px 20px;
-            display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 28px;
-        }
-
-        /* SECTION HEADING */
-        .section-heading {
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--accent);
-            border-bottom: 2px solid var(--accent);
-            padding-bottom: 6px;
-            margin-bottom: 18px;
-        }
-
-        /* FEATURED ARTICLE */
-        .featured {
-            background: var(--white);
-            border-radius: 4px;
-            overflow: hidden;
-            box-shadow: var(--card-shadow);
-            margin-bottom: 24px;
-        }
-        .featured-img {
-            width: 100%;
-            height: 380px;
-            background: linear-gradient(135deg, #1a3a5c 0%, #2e86c1 60%, #1a5276 100%);
-            position: relative;
-            display: flex;
-            align-items: flex-end;
-        }
-        .featured-img-label {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: var(--accent);
-            color: #fff;
-            font-family: Arial, sans-serif;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            padding: 4px 10px;
-            letter-spacing: 0.5px;
-        }
-        .featured-img-overlay {
-            width: 100%;
-            padding: 28px 28px 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
-        }
-        .featured-body { padding: 22px 28px 26px; }
-        .featured-category {
-            font-family: Arial, sans-serif;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--accent);
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
-        }
-        .featured-title {
-            font-size: 26px;
-            font-weight: 900;
-            line-height: 1.25;
-            margin-bottom: 12px;
-            color: var(--text);
-        }
-        .featured-excerpt {
-            font-size: 16px;
-            color: var(--text-muted);
-            line-height: 1.65;
-            margin-bottom: 16px;
-        }
-        .featured-meta {
-            font-family: Arial, sans-serif;
-            font-size: 12px;
-            color: var(--text-muted);
-            display: flex;
-            gap: 16px;
-        }
-
-        /* ARTICLE GRID */
-        .articles-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 18px;
-            margin-bottom: 24px;
-        }
-        .article-card {
-            background: var(--white);
-            border-radius: 4px;
-            overflow: hidden;
-            box-shadow: var(--card-shadow);
-            display: flex;
-            flex-direction: column;
-        }
-        .article-card-img {
-            width: 100%;
-            height: 160px;
-            position: relative;
-        }
-        .article-card-img-bg {
-            width: 100%;
-            height: 100%;
-        }
-        .article-card-body { padding: 16px; flex: 1; }
-        .article-card-category {
-            font-family: Arial, sans-serif;
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--accent);
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
-        }
-        .article-card-title {
-            font-size: 16px;
-            font-weight: 700;
-            line-height: 1.35;
-            margin-bottom: 8px;
-            color: var(--text);
-        }
-        .article-card-title:hover { color: var(--accent); }
-        .article-card-meta {
-            font-family: Arial, sans-serif;
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-top: auto;
-            padding-top: 8px;
-        }
-
-        /* MORE ARTICLES */
-        .more-articles { margin-bottom: 8px; }
-        .more-article-item {
-            background: var(--white);
-            border-radius: 4px;
-            box-shadow: var(--card-shadow);
-            padding: 14px 18px;
-            margin-bottom: 10px;
-            display: flex;
-            gap: 16px;
-            align-items: flex-start;
-        }
-        .more-article-num {
-            font-family: Arial, sans-serif;
-            font-size: 28px;
-            font-weight: 900;
-            color: var(--border);
-            line-height: 1;
-            min-width: 32px;
-        }
-        .more-article-title {
-            font-size: 15px;
-            font-weight: 700;
-            line-height: 1.35;
-            color: var(--text);
-        }
-        .more-article-title:hover { color: var(--accent); }
-        .more-article-meta {
-            font-family: Arial, sans-serif;
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
-
-        /* SIDEBAR */
-        .sidebar {}
-        .sidebar-widget {
-            background: var(--white);
-            border-radius: 4px;
-            box-shadow: var(--card-shadow);
-            padding: 20px;
-            margin-bottom: 22px;
-        }
-        .sidebar-widget-title {
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--primary);
-            border-bottom: 2px solid var(--primary);
-            padding-bottom: 8px;
-            margin-bottom: 16px;
-        }
-        .sidebar-news-item {
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border);
-        }
-        .sidebar-news-item:last-child { border-bottom: none; padding-bottom: 0; }
-        .sidebar-news-title {
-            font-size: 14px;
-            font-weight: 700;
-            line-height: 1.35;
-            margin-bottom: 4px;
-        }
-        .sidebar-news-title:hover { color: var(--accent); }
-        .sidebar-news-meta {
-            font-family: Arial, sans-serif;
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-        .sidebar-img {
-            width: 100%;
-            height: 180px;
-            background: linear-gradient(135deg, #0d3b6e, #2980b9);
-            border-radius: 4px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-            color: rgba(255,255,255,0.6);
-        }
-        .about-text {
-            font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.7;
-        }
-        .weather-widget {
-            text-align: center;
-        }
-        .weather-city {
-            font-family: Arial, sans-serif;
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
-        .weather-temp {
-            font-size: 48px;
-            font-weight: 900;
-            color: var(--primary);
-            line-height: 1;
-            font-family: Arial, sans-serif;
-        }
-        .weather-desc {
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-top: 6px;
-        }
-        .weather-icon { font-size: 36px; margin-bottom: 4px; }
-
-        /* FOOTER */
-        footer {
-            background: var(--primary);
-            color: rgba(255,255,255,0.8);
-            padding: 40px 0 20px;
-            margin-top: 20px;
-        }
-        .footer-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 40px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid rgba(255,255,255,0.15);
-            margin-bottom: 20px;
-        }
-        .footer-logo {
-            font-family: Arial, sans-serif;
-            font-size: 22px;
-            font-weight: 900;
-            color: #fff;
-            text-transform: uppercase;
-            margin-bottom: 12px;
-        }
-        .footer-logo span { color: var(--accent); }
-        .footer-desc {
-            font-size: 13px;
-            line-height: 1.7;
-            color: rgba(255,255,255,0.65);
-        }
-        .footer-col-title {
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #fff;
-            margin-bottom: 14px;
-        }
-        .footer-links { list-style: none; }
-        .footer-links li {
-            padding: 4px 0;
-            font-size: 13px;
-        }
-        .footer-links a {
-            color: rgba(255,255,255,0.65);
-        }
-        .footer-links a:hover { color: #fff; }
-        .footer-bottom {
-            font-family: Arial, sans-serif;
-            font-size: 12px;
-            color: rgba(255,255,255,0.45);
-            text-align: center;
-        }
-
-        /* COLOR PALETTES FOR ARTICLE IMGS */
-        .img-blue   { background: linear-gradient(135deg, #1a3a5c 0%, #2e86c1 100%); }
-        .img-green  { background: linear-gradient(135deg, #1e6b3e 0%, #27ae60 100%); }
-        .img-purple { background: linear-gradient(135deg, #4a235a 0%, #8e44ad 100%); }
-        .img-orange { background: linear-gradient(135deg, #784212 0%, #e67e22 100%); }
-        .img-teal   { background: linear-gradient(135deg, #0e5460 0%, #1abc9c 100%); }
-        .img-red    { background: linear-gradient(135deg, #6e0d0d 0%, #c0392b 100%); }
-
-        @media (max-width: 900px) {
-            .container { grid-template-columns: 1fr; }
-            .articles-grid { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: 1fr; gap: 24px; }
-            nav a { padding: 10px 12px; font-size: 12px; }
-            .featured-img { height: 240px; }
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Rozwój osobisty i motywacja - klucz do sukcesu</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.7;
+        color: #2c3e50;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        margin: 0;
+        padding: 20px;
+    }
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        padding: 40px 50px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    h1 {
+        color: #1a5490;
+        text-align: center;
+        border-bottom: 3px solid #1a5490;
+        padding-bottom: 15px;
+        font-size: 2.2em;
+    }
+    h2 {
+        color: #2874a6;
+        margin-top: 35px;
+        border-left: 5px solid #2874a6;
+        padding-left: 15px;
+    }
+    p {
+        text-align: justify;
+        margin-bottom: 15px;
+        font-size: 1.05em;
+    }
+    .intro {
+        font-style: italic;
+        background-color: #eaf2f8;
+        padding: 15px 20px;
+        border-radius: 8px;
+        border-left: 4px solid #2874a6;
+    }
+    .highlight {
+        color: #1a5490;
+        font-weight: bold;
+    }
+    footer {
+        text-align: center;
+        margin-top: 40px;
+        color: #7f8c8d;
+        font-size: 0.9em;
+    }
+</style>
 </head>
 <body>
-
-<div class="topbar">
-    <div class="topbar-inner">
-        <span id="topbar-date">Poniedziałek, 23 czerwca 2025</span>
-        <span>
-            <a href="#">Kontakt</a> &nbsp;|&nbsp;
-            <a href="#">Newsletter</a> &nbsp;|&nbsp;
-            <a href="#">Reklama</a>
-        </span>
-    </div>
-</div>
-
-<header>
-    <div class="header-inner">
-        <div class="logo">
-            <a href="/">
-                <div class="logo-name">Kutno<span></span></div>
-                <div class="logo-tagline">Lokalny serwis informacyjny &bull; Kutno</div>
-            </a>
-        </div>
-        <div class="header-date" id="header-date">
-            Twój lokalny portal informacyjny
-        </div>
-    </div>
-</header>
-
-<nav>
-    <div class="nav-inner">
-        <a href="#" class="active">Aktualności</a>
-        <a href="#">Miasto</a>
-        <a href="#">Sport</a>
-        <a href="#">Kultura</a>
-        <a href="#">Gospodarka</a>
-        <a href="#">Społeczeństwo</a>
-        <a href="#">Kontakt</a>
-    </div>
-</nav>
-
-<div class="breaking">
-    <div class="breaking-inner">
-        <span class="breaking-label">Pilne</span>
-        <span class="breaking-text">Burmistrz Kutno ogłasza nowe inwestycje w infrastrukturę miejską &nbsp;•&nbsp; Wyniki wyborów do Rady Miejskiej &nbsp;•&nbsp; Nowy rok szkolny – zmiany w organizacji ruchu przy szkołach</span>
-    </div>
-</div>
-
 <div class="container">
-    <!-- MAIN CONTENT -->
-    <main>
-        <div class="section-heading">Najważniejsze</div>
+    <h1>Rozwój osobisty i motywacja - klucz do sukcesu</h1>
+<p><a href="https://swinoujscie.warszawainfo.workers.dev">swinoujscie.warszawainfo.workers.dev</a></p>
 
-        <article class="featured">
-            <div class="featured-img img-blue">
-                <div class="featured-img-label">Wyróżnione</div>
-                <div class="featured-img-overlay"></div>
-            </div>
-            <div class="featured-body">
-                <div class="featured-category">Miasto &bull; Aktualności</div>
-                <h1 class="featured-title"><a href="#">Wielka modernizacja centrum Kutno – znamy szczegóły nowego projektu rewitalizacji</a></h1>
-                <p class="featured-excerpt">Władze miasta przedstawiły ambitny plan przebudowy ścisłego centrum. Projekt obejmuje remont chodników, nowe nasadzenia zieleni, modernizację oświetlenia oraz budowę stref rekreacyjnych. Prace mają ruszyć wiosną przyszłego roku i potrwać do końca 2026.</p>
-                <div class="featured-meta">
-                    <span>23 czerwca 2025</span>
-                    <span>Redakcja Kutno</span>
-                    <span>5 min czytania</span>
-                </div>
-            </div>
-        </article>
+    <p class="intro">Rozwój osobisty to nieustanna podróż, która trwa przez całe życie. Nie jest to cel, do którego zmierzamy, ale sposób, w jaki żyjemy każdego dnia. W dzisiejszym dynamicznie zmieniającym się świecie umiejętność pracy nad sobą i utrzymania wewnętrznej motywacji stała się jedną z najważniejszych kompetencji człowieka. Warto zatem przyjrzeć się bliżej temu, czym tak naprawdę jest rozwój osobisty i jak skutecznie budować w sobie trwałą motywację.</p>
 
-        <div class="section-heading">Wiadomości lokalne</div>
+    <h2>Czym jest rozwój osobisty i dlaczego jest tak ważny?</h2>
+<p><a href="https://gazetapoznan.pl">gazetapoznan.pl</a></p>
+    <p>Rozwój osobisty to świadomy proces doskonalenia własnych umiejętności, poszerzania wiedzy, kształtowania charakteru oraz odkrywania swojego potencjału. Obejmuje on wiele obszarów życia - od sfery zawodowej, przez relacje międzyludzkie, aż po zdrowie psychiczne i fizyczne. Można powiedzieć, że jest to droga do stawania się coraz lepszą wersją samego siebie. Nie chodzi tu jednak o dążenie do nieosiągalnej perfekcji, lecz o ciągłe uczenie się, adaptację i wzrastanie.</p>
+    <p>W obecnych czasach, kiedy technologia zmienia się w zawrotnym tempie, a rynek pracy wymaga coraz większej elastyczności, rozwój osobisty przestał być luksusem, a stał się koniecznością. Osoby, które regularnie inwestują w siebie, radzą sobie znacznie lepiej z wyzwaniami codzienności, są bardziej odporne psychicznie i potrafią efektywniej realizować swoje cele. <span class="highlight">Rozwój to inwestycja</span>, której zwrot odczuwamy w każdej dziedzinie życia.</p>
+    <p>Warto również zwrócić uwagę, że rozwój osobisty nie ogranicza się jedynie do zdobywania nowych umiejętności technicznych. Równie istotne, a często nawet ważniejsze, jest kształtowanie tak zwanych kompetencji miękkich - empatii, komunikatywności, umiejętności rozwiązywania konfliktów czy zarządzania stresem. To właśnie te cechy w największym stopniu decydują o naszej jakości życia i satysfakcji z niego.</p>
 
-        <div class="articles-grid">
-            <article class="article-card">
-                <div class="article-card-img">
-                    <div class="article-card-img-bg img-green" style="height:160px;"></div>
-                </div>
-                <div class="article-card-body">
-                    <div class="article-card-category">Sport</div>
-                    <h2 class="article-card-title"><a href="#">Lokalna drużyna awansuje do wyższej ligi – mieszkańcy świętują sukces</a></h2>
-                    <div class="article-card-meta">22 czerwca 2025 &bull; Sport</div>
-                </div>
-            </article>
+    <h2>Motywacja - siła napędowa naszych działań</h2>
+<p><a href="https://gazetatorun.pl">gazetatorun.pl</a></p>
+    <p>Motywacja jest jak paliwo, które pozwala nam poruszać się do przodu, mimo napotykanych trudności. Bez niej nawet najlepsze plany pozostają jedynie marzeniami na papierze. Psychologowie wyróżniają dwa główne rodzaje motywacji - wewnętrzną i zewnętrzną. Motywacja wewnętrzna wypływa z naszych pasji, wartości i przekonań. To ona sprawia, że robimy coś, ponieważ sprawia nam to prawdziwą radość i daje poczucie sensu. Motywacja zewnętrzna natomiast opiera się na nagrodach, uznaniu innych czy uniknięciu kary.</p>
+    <p>Choć obie formy motywacji mają swoje miejsce w naszym życiu, to właśnie motywacja wewnętrzna okazuje się najbardziej trwała i skuteczna. Osoby, które działają w zgodzie z własnymi wartościami, rzadziej doświadczają wypalenia zawodowego, są bardziej kreatywne i osiągają lepsze wyniki w długiej perspektywie. Dlatego tak ważne jest, aby poświęcić czas na refleksję nad tym, co naprawdę jest dla nas ważne i co daje nam poczucie spełnienia.</p>
+<p><a href="https://krakowinfo24.github.io/kutno.github.io/">krakowinfo24.github.io/kutno.github.io/</a></p>
+    <p>Warto pamiętać, że motywacja nie jest stałym stanem umysłu. Naturalne jest, że czasem czujemy ogromny przypływ energii, a innym razem mamy trudności, aby zmobilizować się do najprostszych zadań. Kluczem do sukcesu nie jest bezustanne utrzymywanie wysokiego poziomu motywacji, lecz budowanie nawyków, które pozwolą nam działać nawet wtedy, gdy motywacja spadnie. To właśnie <span class="highlight">dyscyplina i konsekwencja</span> są tym, co odróżnia osoby osiągające cele od tych, które ciągle o nich marzą.</p>
 
-            <article class="article-card">
-                <div class="article-card-img">
-                    <div class="article-card-img-bg img-purple" style="height:160px;"></div>
-                </div>
-                <div class="article-card-body">
-                    <div class="article-card-category">Kultura</div>
-                    <h2 class="article-card-title"><a href="#">Festiwal Kulturalny Kutno 2025 – program i bilety już dostępne</a></h2>
-                    <div class="article-card-meta">21 czerwca 2025 &bull; Kultura</div>
-                </div>
-            </article>
+    <h2>Praktyczne metody wspierające rozwój osobisty</h2>
+<p><a href="https://warszawadlaciebie.pl">warszawadlaciebie.pl</a></p>
+    <p>Istnieje wiele sprawdzonych metod, które mogą wspomóc naszą podróż rozwoju osobistego. Jedną z najskuteczniejszych jest regularne czytanie książek - zarówno tych fachowych, jak i literatury pięknej. Książki poszerzają nasze horyzonty, uczą krytycznego myślenia i pozwalają spojrzeć na świat z różnych perspektyw. Nawet 20-30 minut lektury dziennie może w skali roku dać nam przeczytać kilkadziesiąt książek, co znacząco wpłynie na nasz sposób postrzegania rzeczywistości.</p>
+    <p>Kolejną skuteczną praktyką jest prowadzenie dziennika. Regularne zapisywanie swoich myśli, celów, sukcesów i porażek pozwala lepiej zrozumieć samego siebie, śledzić postępy oraz identyfikować powtarzające się schematy zachowań. Dziennik może przybrać różne formy - od klasycznego pamiętnika, przez dziennik wdzięczności, aż po dziennik celów. Ważne, aby był to nawyk regularny i szczery.</p>
+<p><a href="https://dziennikpoznan.pl">dziennikpoznan.pl</a></p>
+    <p>Nie można również zapomnieć o medytacji i praktykach uważności. Coraz więcej badań naukowych potwierdza pozytywny wpływ medytacji na zdrowie psychiczne, koncentrację i ogólne samopoczucie. Nawet kilka minut ciszy i skupienia na oddechu każdego dnia może znacząco poprawić jakość naszego życia. Warto również inwestować w kursy, szkolenia oraz networking - kontakt z inspirującymi ludźmi to jeden z najsilniejszych motorów rozwoju.</p>
 
-            <article class="article-card">
-                <div class="article-card-img">
-                    <div class="article-card-img-bg img-orange" style="height:160px;"></div>
-                </div>
-                <div class="article-card-body">
-                    <div class="article-card-category">Gospodarka</div>
-                    <h2 class="article-card-title"><a href="#">Nowe miejsca pracy w Kutno – duży inwestor wchodzi na rynek lokalny</a></h2>
-                    <div class="article-card-meta">20 czerwca 2025 &bull; Gospodarka</div>
-                </div>
-            </article>
+    <h2>Wyznaczanie celów i pokonywanie przeszkód</h2>
+    <p>Bez jasno określonych celów nasza podróż rozwoju osobistego przypomina błądzenie we mgle. Cele nadają naszym działaniom kierunek i pozwalają mierzyć postępy. Popularną metodą wyznaczania celów jest metoda SMART, według której cel powinien być konkretny (Specific), mierzalny (Measurable), osiągalny (Achievable), istotny (Relevant) oraz określony w czasie (Time-bound). Dzięki tej strukturze abstrakcyjne marzenia zamieniają się w konkretne plany działania.</p>
+    <p>Na drodze do celów nieuchronnie napotykamy przeszkody - zarówno te zewnętrzne, jak i wewnętrzne. Największym wrogiem rozwoju często jest strach - przed porażką, przed oceną innych, przed nieznanym. Warto pamiętać, że strach jest naturalną reakcją naszego mózgu na zmiany i wcale nie musi nas paraliżować. Kluczem jest nauczenie się działania mimo strachu, a nie czekanie, aż on zniknie. Każde małe zwycięstwo nad własnymi lękami buduje pewność siebie i otwiera drzwi do kolejnych sukcesów.</p>
+    <p>Równie istotna jest umiejętność radzenia sobie z porażkami. W kulturze, która często gloryfikuje sukces, łatwo zapomnieć, że upadki są nieodłączną częścią każdej znaczącej drogi. To właśnie z porażek uczymy się najwięcej - o sobie, o świecie, o tym, co naprawdę działa, a co nie. Warto traktować niepowodzenia jako cenne lekcje, a nie dowody własnej niewystarczalności. Taka zmiana perspektywy potrafi całkowicie odmienić nasze podejście do życia i sprawić, że staniemy się bardziej odważni i zdeterminowani.</p>
 
-            <article class="article-card">
-                <div class="article-card-img">
-                    <div class="article-card-img-bg img-teal" style="height:160px;"></div>
-                </div>
-                <div class="article-card-body">
-                    <div class="article-card-category">Społeczeństwo</div>
-                    <h2 class="article-card-title"><a href="#">Nowe ścieżki rowerowe w Kutno – kiedy otwarcie i gdzie przebiegają?</a></h2>
-                    <div class="article-card-meta">19 czerwca 2025 &bull; Społeczeństwo</div>
-                </div>
-            </article>
-        </div>
+    <h2>Podsumowanie - Twoja droga do lepszej wersji siebie</h2>
+    <p>Rozwój osobisty i motywacja to tematy, które będą aktualne zawsze, ponieważ dotyczą fundamentalnej ludzkiej potrzeby - potrzeby wzrastania. Warto pamiętać, że każdy z nas ma unikalną drogę i nie ma jednego uniwersalnego przepisu na sukces. Kluczem jest samopoznanie, konsekwencja w działaniu i cierpliwość. Prawdziwe zmiany nie dokonują się z dnia na dzień, ale są efektem drobnych, codziennych wyborów.</p>
+<p><a href="https://naszezyciewmiescie.pl">naszezyciewmiescie.pl</a></p>
+    <p>Zacznij od małych kroków - jednej książki, jednego nowego nawyku, jednego celu. Z czasem te niewielkie działania złożą się na potężną transformację. Pamiętaj, że najlepszy moment na rozpoczęcie pracy nad sobą był wczoraj, a drugi najlepszy jest właśnie teraz. Twoja przyszłość zaczyna się od decyzji podjętej dzisiaj.</p>
+<p><a href="https://hurtowezakupy.pl">hurtowezakupy.pl</a></p>
 
-        <div class="section-heading">Więcej wiadomości</div>
-
-        <div class="more-articles">
-            <div class="more-article-item">
-                <div class="more-article-num">1</div>
-                <div>
-                    <div class="more-article-title"><a href="#">Przebudowa ul. Głównej w Kutno – utrudnienia w ruchu przez kolejne tygodnie</a></div>
-                    <div class="more-article-meta">23 czerwca 2025 &bull; Miasto</div>
-                </div>
-            </div>
-            <div class="more-article-item">
-                <div class="more-article-num">2</div>
-                <div>
-                    <div class="more-article-title"><a href="#">Szkoły w Kutno podsumowują rok szkolny 2024/2025 – wyniki i statystyki</a></div>
-                    <div class="more-article-meta">22 czerwca 2025 &bull; Edukacja</div>
-                </div>
-            </div>
-            <div class="more-article-item">
-                <div class="more-article-num">3</div>
-                <div>
-                    <div class="more-article-title"><a href="#">Jarmark Letni na Rynku – tłumy mieszkańców na corocznej imprezie</a></div>
-                    <div class="more-article-meta">21 czerwca 2025 &bull; Kultura</div>
-                </div>
-            </div>
-            <div class="more-article-item">
-                <div class="more-article-num">4</div>
-                <div>
-                    <div class="more-article-title"><a href="#">Zmiany w rozkładzie jazdy autobusów miejskich od 1 lipca 2025</a></div>
-                    <div class="more-article-meta">20 czerwca 2025 &bull; Komunikacja</div>
-                </div>
-            </div>
-            <div class="more-article-item">
-                <div class="more-article-num">5</div>
-                <div>
-                    <div class="more-article-title"><a href="#">Nowe oblicze Parku Miejskiego – zakończono remont i otwarcie dla zwiedzających</a></div>
-                    <div class="more-article-meta">18 czerwca 2025 &bull; Miasto</div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <div class="sidebar-widget">
-            <div class="sidebar-widget-title">Popularne dziś</div>
-            <div class="sidebar-news-item">
-                <div class="sidebar-news-title"><a href="#">Wyniki matur 2025 – jak wypadli uczniowie z Kutno?</a></div>
-                <div class="sidebar-news-meta">23 czerwca 2025</div>
-            </div>
-            <div class="sidebar-news-item">
-                <div class="sidebar-news-title"><a href="#">Targi pracy w Kutno – setki ofert dla bezrobotnych</a></div>
-                <div class="sidebar-news-meta">22 czerwca 2025</div>
-            </div>
-            <div class="sidebar-news-item">
-                <div class="sidebar-news-title"><a href="#">Nowe połączenie kolejowe z Kutno do Warszawy</a></div>
-                <div class="sidebar-news-meta">21 czerwca 2025</div>
-            </div>
-            <div class="sidebar-news-item">
-                <div class="sidebar-news-title"><a href="#">Pożar w centrum – straż pożarna szybko opanowała ogień</a></div>
-                <div class="sidebar-news-meta">20 czerwca 2025</div>
-            </div>
-        </div>
-
-        <div class="sidebar-widget weather-widget">
-            <div class="sidebar-widget-title">Pogoda w Kutno</div>
-            <div class="weather-icon">⛅</div>
-            <div class="weather-city">Kutno</div>
-            <div class="weather-temp">21°C</div>
-            <div class="weather-desc">Częściowe zachmurzenie &bull; Poniedziałek</div>
-        </div>
-
-        <div class="sidebar-widget">
-            <div class="sidebar-widget-title">O nas</div>
-            <div class="sidebar-img">Kutno</div>
-            <p class="about-text">Kutno to niezależny lokalny serwis informacyjny poświęcony wiadomościom z Kutno i regionu. Dostarczamy rzetelne informacje dla mieszkańców od 2020 roku.</p>
-        </div>
-
-        <div class="sidebar-widget">
-            <div class="sidebar-widget-title">Kontakt</div>
-            <div style="font-size:13px; color: var(--text-muted); line-height:2;">
-                <div>📧 redakcja@kutno.github.io</div>
-                <div>📞 +48 34 XXX XX XX</div>
-                <div>📍 Kutno, ul. Redakcyjna 1</div>
-            </div>
-        </div>
-    </aside>
+    <footer>
+        <p>© 2024 Rozwój osobisty i motywacja - artykuł inspiracyjny</p>
+    </footer>
 </div>
-
-<footer>
-    <div class="footer-inner">
-        <div class="footer-grid">
-            <div>
-                <div class="footer-logo">Kutno<span></span></div>
-                <p class="footer-desc">Lokalny serwis informacyjny Kutno. Najnowsze wiadomości, aktualności lokalne, sport, kultura i gospodarka. Bądź na bieżąco z tym, co dzieje się w Twoim mieście.</p>
-            </div>
-            <div>
-                <div class="footer-col-title">Działy</div>
-                <ul class="footer-links">
-                    <li><a href="#">Aktualności</a></li>
-                    <li><a href="#">Miasto</a></li>
-                    <li><a href="#">Sport</a></li>
-                    <li><a href="#">Kultura</a></li>
-                    <li><a href="#">Gospodarka</a></li>
-                </ul>
-            </div>
-            <div>
-                <div class="footer-col-title">Informacje</div>
-                <ul class="footer-links">
-                    <li><a href="#">O redakcji</a></li>
-                    <li><a href="#">Kontakt</a></li>
-                    <li><a href="#">Reklama</a></li>
-                    <li><a href="#">Polityka prywatności</a></li>
-                    <li><a href="#">Regulamin</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            &copy; <span id="footer-year">2025</span> Kutno. Wszelkie prawa zastrzeżone.
-        </div>
-    </div>
-</footer>
-
-<script>
-    const now = new Date();
-    const days = ['Niedziela','Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota'];
-    const months = ['stycznia','lutego','marca','kwietnia','maja','czerwca','lipca','sierpnia','września','października','listopada','grudnia'];
-    document.getElementById('topbar-date').textContent =
-        days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
-    document.getElementById('footer-year').textContent = now.getFullYear();
-</script>
-
 </body>
 </html>
